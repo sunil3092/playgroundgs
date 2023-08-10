@@ -17,7 +17,20 @@ renderer.setClearColor(backgroundColor);
 document.body.appendChild(renderer.domElement);
 
 const h1 = getHeart();
-scene.add(h1);
+
+const textureLoader = new THREE.TextureLoader();
+const texture = textureLoader.load("./texture.jpg");
+const material = new THREE.MeshPhongMaterial({
+  map: texture,
+  color: 0xffffff,
+});
+
+const heartMesh = new THREE.Mesh(h1, material);
+
+const scaleFactor = 0.1;
+heartMesh.scale.set(-scaleFactor, -scaleFactor, scaleFactor);
+
+scene.add(heartMesh);
 
 // Create lighting
 const ambientLight = new THREE.AmbientLight(0x404040); // Soft white ambient light
@@ -32,7 +45,7 @@ camera.position.z = 5;
 function animate() {
   requestAnimationFrame(animate);
 
-  h1.rotation.y += 0.01;
+  heartMesh.rotation.y += 0.01;
 
   renderer.render(scene, camera);
 }

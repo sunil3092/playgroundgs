@@ -25,17 +25,5 @@ export function getHeart() {
 
   const geometry = new THREE.ExtrudeGeometry(h, extSettings);
 
-  const textureLoader = new THREE.TextureLoader();
-  const texture = textureLoader.load("../shapes/texture.jpg");
-  const material = new THREE.MeshPhongMaterial({
-    map: texture,
-    color: 0xffffff,
-  });
-
-  const heartMesh = new THREE.Mesh(geometry, material);
-
-  const scaleFactor = 0.1;
-  heartMesh.scale.set(-scaleFactor, -scaleFactor, scaleFactor);
-
-  return heartMesh;
+  return geometry;
 }
