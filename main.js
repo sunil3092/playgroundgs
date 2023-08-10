@@ -10,6 +10,10 @@ const camera = new THREE.PerspectiveCamera(
 );
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
+
+const backgroundColor = new THREE.Color(0x99ccff);
+renderer.setClearColor(backgroundColor);
+
 document.body.appendChild(renderer.domElement);
 
 const h1 = getHeart();
