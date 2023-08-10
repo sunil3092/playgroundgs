@@ -1,4 +1,5 @@
 import * as THREE from "./three.module.min.js";
+
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
   75,
@@ -32,40 +33,42 @@ function getHeart() {
   };
 
   const geometry = new THREE.ExtrudeGeometry(h, extSettings);
-  const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-
-  const mesh = new THREE.Mesh(geometry, material);
-
-  return mesh;
+  return geometry;
 }
 
 const h1 = getHeart();
-const scaleFactors = new THREE.Vector3(0.1, 0.1, 0.1);
-h1.scale.copy(scaleFactors);
 
-if (
-  scaleFactors.x === 0.1 &&
-  scaleFactors.y === 0.1 &&
-  scaleFactors.z === 0.1
-) {
-  h1.scale.set(-scaleFactors.x, -scaleFactors.y, -scaleFactors.z);
-}
+// Create a texture
+const textureLoader = new THREE.TextureLoader();
+const texture = textureLoader.load("./texture.jpg");
 
-const edges = new THREE.EdgesGeometry(h1.geometry);
-const lineMaterial = new THREE.LineBasicMaterial({ color: 0x000000 });
+// Create a MeshPhongMaterial with the texture and lighting
+const material = new THREE.MeshPhongMaterial({
+  map: texture,
+  color: 0xffffff,
+});
 
-// Create line segments (borders) using the edges geometry and material
-const borderLines = new THREE.LineSegments(edges, lineMaterial);
-h1.add(borderLines);
+const heartMesh = new THREE.Mesh(h1, material);
 
-scene.add(h1);
+const scaleFactor = 0.1;
+heartMesh.scale.set(-scaleFactor, -scaleFactor, scaleFactor);
+
+scene.add(heartMesh);
+
+// Create lighting
+const ambientLight = new THREE.AmbientLight(0x404040); // Soft white ambient light
+scene.add(ambientLight);
+
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+directionalLight.position.set(1, 1, 1); // Set the direction of the light
+scene.add(directionalLight);
 
 camera.position.z = 5;
 
 function animate() {
   requestAnimationFrame(animate);
 
-  h1.rotation.y += 0.01;
+  heartMesh.rotation.y += 0.01;
 
   renderer.render(scene, camera);
 }
