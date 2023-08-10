@@ -26,7 +26,7 @@ export function getHeart() {
   const geometry = new THREE.ExtrudeGeometry(h, extSettings);
 
   const textureLoader = new THREE.TextureLoader();
-  const texture = textureLoader.load("../textures/texture.jpg");
+  const texture = textureLoader.load("./texture.jpg");
   const material = new THREE.MeshPhongMaterial({
     map: texture,
     color: 0xffffff,
