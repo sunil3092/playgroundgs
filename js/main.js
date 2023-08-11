@@ -1,5 +1,5 @@
 import * as THREE from "./three.module.min.js";
-import { getHeart } from "./shapes/heart.js";
+import { getSphereWithTexture } from "./sphere.js";
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
@@ -11,26 +11,13 @@ const camera = new THREE.PerspectiveCamera(
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 
-const backgroundColor = new THREE.Color(0x99ccff);
-renderer.setClearColor(backgroundColor);
-
 document.body.appendChild(renderer.domElement);
 
-const h1 = getHeart();
-
-const textureLoader = new THREE.TextureLoader();
-const texture = textureLoader.load("./texture.jpg");
-const material = new THREE.MeshPhongMaterial({
-  map: texture,
-  color: 0xffffff,
-});
-
-const heartMesh = new THREE.Mesh(h1, material);
-
-const scaleFactor = 0.1;
-heartMesh.scale.set(-scaleFactor, -scaleFactor, scaleFactor);
-
-scene.add(heartMesh);
+// Create a sphere with the same texture
+const sphereTexturePath = "../assets/earth.jpg"; // Replace with the actual path to the texture
+const sphere = getSphereWithTexture(sphereTexturePath);
+sphere.position.set(0, 0, 0); // Adjust the position as needed
+scene.add(sphere);
 
 // Create lighting
 const ambientLight = new THREE.AmbientLight(0x404040); // Soft white ambient light
@@ -45,7 +32,7 @@ camera.position.z = 5;
 function animate() {
   requestAnimationFrame(animate);
 
-  heartMesh.rotation.y += 0.01;
+  sphere.rotation.y += 0.01;
 
   renderer.render(scene, camera);
 }
