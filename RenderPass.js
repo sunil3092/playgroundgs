@@ -1,4 +1,4 @@
-import { Color } from "three";
+import { Color } from "./three.module.min";
 import { Pass } from "../postprocessing/Pass.js";
 
 class RenderPass extends Pass {

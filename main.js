@@ -14,7 +14,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 // Create a sphere with the same texture
-const sphereTexturePath = "../assets/earth.jpg"; // Replace with the actual path to the texture
+const sphereTexturePath = "./earth.jpg"; // Replace with the actual path to the texture
 const sphere = getSphereWithTexture(sphereTexturePath);
 sphere.position.set(0, 0, 0); // Adjust the position as needed
 scene.add(sphere);
